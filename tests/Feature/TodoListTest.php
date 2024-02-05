@@ -10,14 +10,15 @@ class TodoListTest extends TestCase
 {
     public function test_example()
     {
-        // Preperation / prepare    
+        // Arrange / Preperation / prepare   
 
         
-        // action / perform
+        // Act / Action / perform
         $response = $this->getJson('todo-list');
         dd($response->json());
-        // assertion  / perdict
 
+
+        // Assertion  / perdict
         $this->assertEquals(1,count($response->json()));
 
     }
