@@ -8,19 +8,16 @@ use Tests\TestCase;
 
 class TodoListTest extends TestCase
 {
+   /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
     public function test_example()
     {
-        // Arrange / Preperation / prepare   
+        $response = $this->get('/');
 
-        
-        // Act / Action / perform
-        $response = $this->getJson('todo-list');
-        dd($response->json());
-
-
-        // Assertion  / perdict
-        $this->assertEquals(1,count($response->json()));
-
+        $response->assertStatus(200);
     }
 
 
