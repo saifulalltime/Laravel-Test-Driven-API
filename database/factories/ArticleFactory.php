@@ -14,8 +14,10 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->unique()->name(),
-            'body' => $this->faker->name()
+            // 'title' => $this->faker->unique()->name(),
+            // 'body' => $this->faker->name()
+            'title' => 'This is a single article title',
+            'body' => 'This is a single article body',
           ];
     }
 }

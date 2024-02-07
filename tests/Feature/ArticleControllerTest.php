@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\ArticleController;
 use App\Models\Article;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -26,7 +27,9 @@ class ArticleControllerTest extends TestCase
          * @Assert - Expectation 
     */
 
-
+    /**
+     * @test
+     */
     // This is Method Wise Test
     public function it_will_show_list_of_article()
     {
@@ -39,7 +42,6 @@ class ArticleControllerTest extends TestCase
         // Assertion  / perdict
         $this->assertEquals(10,$post->count());
     }
-
 
     /**
      * @test
@@ -60,5 +62,67 @@ class ArticleControllerTest extends TestCase
         $this->assertEquals($post->id, $getPost['id']);
         $this->assertEquals('This is a single article title', $getPost['title']);
      }
+
+      /**
+     * @test
+     */
+     // This test will test a single article
+     public function it_trow_exception_if_wrong_id_passed()
+     {
+        // Arrange / Preperation / prepare   
+        $post = Article::factory()->create();
+        
+        // Assertion  / perdict
+        $this->expectException(ModelNotFoundException::class);
+
+        // Act / Action / perform
+        (new ArticleController)->show(99);
+     }
+
+      /**
+     * @test
+     */
+    // Create a new Article
+    public function it_creates_a_new_article()
+    {
+        // Pree Assertion 
+        $this->assertDatabaseCount('articles', 0);
+        // Arrange / Preperation / prepare   
+        $post = [
+            'title' => 'This is a single article title',
+            'body' => 'This is a single article body',
+        ];
+        
+        // Act / Action / perform
+        (new ArticleController)->store($post);
+
+        // Assertion  / perdict
+        $this->assertDatabaseCount('articles',1);
+    }
+         /**
+     * @test
+     */
+    // Delete a new Article
+    public function it_delete_a_specific_article()
+    {
+
+        // Arrange / Preperation / prepare   
+        // Pree Assertion 
+        // DECOY: This record will be untouched
+        $untouchedPost = Article::factory()->create();
+        // dd($untouchedPost);
+        $deleteAblePost = Article::factory()->create();
+    
+        $this->assertDatabaseCount('articles',2);
+
+        // Act / Action / perform
+        (new ArticleController)->destroy($deleteAblePost->id);
+
+        // Assertion  / perdict
+        $this->assertDatabaseCount('articles', 1);
+        $this->assertDatabaseMissing('articles', ['id' => $deleteAblePost->id]);
+        $this->assertDatabaseHas('articles', ['id' => $untouchedPost->id]);
+    }
+
      
 }
