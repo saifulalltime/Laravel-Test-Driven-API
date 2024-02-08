@@ -1,0 +1,6 @@
+-   Test
+-   Login option
+-   create an admin
+-   create a product
+-   view a product
+-   purchase a product

@@ -26,12 +26,10 @@ class ArticleTest extends TestCase
             'body' => 'This is a single article body',
             'user_id' => $user->id,
         ]);
-        // dd($post);
-        // // Act / Action / perform
+        // Act / Action / perform
         (new ArticleController)->show($post->id);
 
-        // // Assertion  / perdict
+        // Assertion  / perdict
         $this->assertEquals($user->id,$post->user_id);
-
     }
 }
