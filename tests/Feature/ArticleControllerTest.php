@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\ArticleController;
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -53,6 +54,7 @@ class ArticleControllerTest extends TestCase
         $post = Article::factory()->create([
             'title' => 'This is a single article title',
             'body' => 'This is a single article body',
+            'user_id' => User::factory()->create()->id
         ]);
          
         // Act / Action / perform
@@ -91,6 +93,7 @@ class ArticleControllerTest extends TestCase
         $post = [
             'title' => 'This is a single article title',
             'body' => 'This is a single article body',
+            'user_id' => User::factory()->create()->id,
         ];
         
         // Act / Action / perform
@@ -99,7 +102,8 @@ class ArticleControllerTest extends TestCase
         // Assertion  / perdict
         $this->assertDatabaseCount('articles',1);
     }
-         /**
+
+    /**
      * @test
      */
     // Delete a new Article
@@ -123,6 +127,8 @@ class ArticleControllerTest extends TestCase
         $this->assertDatabaseMissing('articles', ['id' => $deleteAblePost->id]);
         $this->assertDatabaseHas('articles', ['id' => $untouchedPost->id]);
     }
+
+
 
      
 }
