@@ -11,20 +11,33 @@ class ProductTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * 
-     * @test
-     */
+    /** @test */
+    public function visitor_can_able_to_view_product_list()
+    {
+        // Arrange / Preperation / prepare   
+        Product::factory()->count(10)->create();
+        // Act / Action / perform
+        $response = $this->get('api/product/list');
+
+        // Assertion  / perdict
+        $response->assertStatus(200);
+        $response->assertSee('This is a product title');
+    }
+    /** @test  */
     public function visitor_can_able_to_view_a_product()
     {
         // Arrange / Preperation / prepare   
-        Product::create([
-            'title' => 'This is a product title',
+        $product = Product::create([
+            'name' => 'This is a product title',
         ]);
-        $response = $this->get('api/product/single/info/1');
-        dd($response);
+        // dd($product->id);
+        $response = $this->get('api/product/single/info/'.$product->id);
+        // dd($response['id']);
         // Act / Action / perform
 
         // Assertion  / perdict
+        $response->assertStatus(200);
+        $this->assertEquals($product->id,$response['id']);
+        $response->assertSee('This is a product title');
     }
 }

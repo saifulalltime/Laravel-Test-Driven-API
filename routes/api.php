@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::prefix('product')->controller(ProductController::class)->group(function () {
-    Route::get('single/info/{id}', 'ProductSingleInfo')->name('single-product.productSingleInfo');
+
+    Route::get('list', 'ProductList');
+    Route::get('single/info/{id}', 'ProductSingleInfo');
+
 });
-
-
