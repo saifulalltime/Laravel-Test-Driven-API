@@ -17,6 +17,8 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->unique()->name(),
             'details' => $this->faker->text(),
+            'price' => $this->faker->numberBetween(100, 1000),
+            'quantity' => $this->faker->numberBetween(1, 10),
             'user_id' => User::factory()->create()->id,
         ];
     }
