@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->longText('details');
             $table->double('price');
             $table->integer('quantity');
+            $table->dateTime('published_at')->nullable();
             $table->unsignedInteger('user_id');
             $table->timestamps();
         });

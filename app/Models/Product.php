@@ -14,6 +14,18 @@ class Product extends Model
             'details',
             'price',
             'quantity',
+            'published_at',
             'user_id'
         ];
+
+    
+    // Created a scope for the published list 
+    public function scopePublished($query){
+        return $query->whereNotNull("published_at");
+    }
+
+    // Price convert Taka to Dollar
+    public function priceInDollar(){
+        return (float) number_format($this->price / 100,2);
+    }
 }

@@ -22,4 +22,27 @@ class ProductFactory extends Factory
             'user_id' => User::factory()->create()->id,
         ];
     }
+
+    /**
+     * Indicate that the article is published.
+     */
+    public function published(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'published_at' => now(),
+            ];
+        });
+    }
+    /**
+     * Indicate that the article is unPublished.
+     */
+    public function unPublished(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'published_at' => NULL,
+            ];
+        });
+    }
 }
