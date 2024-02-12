@@ -16,5 +16,9 @@ class ProductController extends Controller
     public function productSingleInfo($id){
         return Product::published()->findOrFail($id);
     }
+    // Create a new Product
+    public function createProduct(array $products){
+        return Product::firstOrCreate($products);
+    }
 
 }
