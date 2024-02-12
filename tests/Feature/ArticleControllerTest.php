@@ -114,7 +114,6 @@ class ArticleControllerTest extends TestCase
         // Pree Assertion 
         // DECOY: This record will be untouched
         $untouchedPost = Article::factory()->create();
-        // dd($untouchedPost);
         $deleteAblePost = Article::factory()->create();
     
         $this->assertDatabaseCount('articles',2);
@@ -126,6 +125,10 @@ class ArticleControllerTest extends TestCase
         $this->assertDatabaseCount('articles', 1);
         $this->assertDatabaseMissing('articles', ['id' => $deleteAblePost->id]);
         $this->assertDatabaseHas('articles', ['id' => $untouchedPost->id]);
+        // Optionally, you can also assert that attempting to delete the untouchable post does not affect the database
+        // dd($untouchedPost->id);
+        $response = (new ArticleController)->destroy($untouchedPost->id);
+        $this->assertDatabaseCount('articles', 0);
     }
 
 
