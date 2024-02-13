@@ -15,7 +15,7 @@ class ArticleControllerTest extends TestCase
     /**  
      * @test
      * There are two type of Test
-     * HTTP Test / URL Check wise Test
+     * HTTP Test / Route wise Test /URL Check wise Test
      * Direct Method wise Test
     */
 

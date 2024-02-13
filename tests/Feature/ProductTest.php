@@ -27,7 +27,8 @@ class ProductTest extends TestCase
     /** @test  */
     public function visitor_can_able_to_view_a_published_product()
     {
-        // Arrange / Preperation / prepare   
+        // Arrange / Preperation / prepare  
+        /* Used State For published */ 
         $product = Product::factory()->published()->create([
             // 'published_at' => now(),
             'name' => 'This is a product title',
@@ -60,9 +61,12 @@ class ProductTest extends TestCase
     /** @test */
     public function visitor_cannot_able_to_view_a_unpublished_product(){
         // Arrange / Preperation / prepare   
+
+        /* Used State For unPublished */
         // $product = Product::factory()->create([
         //     "published_at" => Null
         // ]);
+
         $product = Product::factory()->unPublished()->create();
 
         // Act / Action / perform
