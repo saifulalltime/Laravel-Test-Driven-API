@@ -18,7 +18,7 @@ class PurchaseproductTest extends TestCase
         // Arrange
         // Create a new product 
         $product = Product::factory()->create([
-            'price' => 1500
+            'price' => 500
         ]);
 
         $payment = new FakePaymentGateway;
@@ -26,17 +26,19 @@ class PurchaseproductTest extends TestCase
 
         // Act
         // Place order via a specific endpoint with relevant parameters
-        $this->post('/api/orders/create', [
+        $order = $this->post('/api/orders/create', [
             'product_id' => $product->id,
             'email' => 'foo@bar.com',
             'quantity' => 3,
             'token' => $payment->getValidTestToken(),
         ]);
 
+        // dd($order);
         // Assert
         // Confirm this order chraged  the amount
         // Confirm this order is available for this specific user
-        $this->assertEquals(1500, $payment->totalCharged());
+        $this->assertEquals(1500, $payment->totalCharges());
         $this->assertNotNull(Order::where('email', '=', 'foo@bar.com')->latest()->first());
+        $order->assertSee("Order placed successfully");
     }
 }

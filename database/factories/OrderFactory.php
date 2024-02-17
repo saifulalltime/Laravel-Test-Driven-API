@@ -14,7 +14,7 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'email' => $this->faker->unique()->email(),
         ];
     }
 }

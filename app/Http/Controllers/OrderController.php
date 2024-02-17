@@ -18,11 +18,13 @@ class OrderController extends Controller
     // Create a new Order 
     public function createOrder(Request $request)
     {
+        // dd($request);
         // Gether User Information from the user
         
         // Confirm the product is available 
         $product = Product::find($request['product_id']);
-        $amount = $product->ammount*$request['quantity'];
+        // dd( $product);
+        $amount = $product->price*$request['quantity'];
         // Charge for the order 
         $this->paymentGateway->charge($amount,$request['token']);
         // Create an order 
