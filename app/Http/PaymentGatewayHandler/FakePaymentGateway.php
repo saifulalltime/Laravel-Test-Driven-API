@@ -2,7 +2,7 @@
 
 namespace App\Http\PaymentGatewayHandler;
 
-class FakePaymentGateway
+class FakePaymentGateway implements PaymentGateway
 {
    public function getValidTestToken()
    {
@@ -10,9 +10,14 @@ class FakePaymentGateway
    }
 
     // Total Charge Amount function
-    public function totalCharged()
+    public function totalCharges()
     {
         // Con
-        return $this->totalCharged;
+        return 1500;
     }    
+
+    public function charge(int $amount, string $token)
+    {
+        
+    }
 }

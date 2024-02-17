@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\PaymentGatewayHandler\FakePaymentGateway;
+use App\Http\PaymentGatewayHandler\PaymentGateway;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,7 +22,7 @@ class PurchaseproductTest extends TestCase
         ]);
 
         $payment = new FakePaymentGateway;
-
+        $this->instance(PaymentGateway::class, $payment);
 
         // Act
         // Place order via a specific endpoint with relevant parameters
@@ -35,7 +36,7 @@ class PurchaseproductTest extends TestCase
         // Assert
         // Confirm this order chraged  the amount
         // Confirm this order is available for this specific user
-        // $this->assertEquals(1500, $payment->totalCharged());
-        // $this->assertNotNull(Order::where('email', '=', 'foo@bar.com')->latest()->first());
+        $this->assertEquals(1500, $payment->totalCharged());
+        $this->assertNotNull(Order::where('email', '=', 'foo@bar.com')->latest()->first());
     }
 }
