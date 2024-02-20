@@ -40,5 +40,6 @@ class PurchaseproductTest extends TestCase
         $this->assertEquals(1500, $payment->totalCharges());
         $this->assertNotNull(Order::where('email', '=', 'foo@bar.com')->latest()->first());
         $order->assertSee("Order placed successfully");
+        
     }
 }
